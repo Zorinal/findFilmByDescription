@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1>Find film by description</h1>
+<#if error??>
+    <div style="color: red;">${error}</div>
+</#if>
 <form action="/registration" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <label for="username">Логин</label>
@@ -15,6 +18,10 @@
     <label for="password">Пароль:</label>
     <input type="password" id="password" name="password"/><br><br>
     <input type="submit" value="Зарегистрироваться"/>
+</form>
+<form action="/login" method="get">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="submit" value="Войти"/>
 </form>
 </body>
 </html>

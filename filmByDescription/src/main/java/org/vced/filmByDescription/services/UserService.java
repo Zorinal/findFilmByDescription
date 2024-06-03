@@ -8,6 +8,7 @@ import org.vced.filmByDescription.models.Role;
 import org.vced.filmByDescription.models.User;
 import org.vced.filmByDescription.repositories.UserRepository;
 
+// основная логика взаимодействия с пользователями
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -17,16 +18,17 @@ public class UserService {
 
     public boolean createUser(User user) {
         log.info("UserService.createUser()");
+        // существует ли данный пользователь
         if (userRepository.findUserByUsername(user.getUsername()).isPresent()) {
             log.info("User {} already exists", user.getUsername());
             return false;
         }
+        // устанавливаем базовые параметры для юзера
         user.setActive(true);
         user.getRoles().add(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         log.info("User {} has been created", user.getUsername());
-
         return true;
     }
 }

@@ -13,22 +13,26 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.vced.filmByDescription.repositories.UserRepository;
 import org.vced.filmByDescription.services.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+// Конфигурация для корректного входа/выхода + регистрация
 public class SecurityConfig {
-    private final UserRepository userRepository;
+    // Настройка разрешений для пользователей
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Куда можно заходить пользователями с разными ролями, а куда нельзя
         http
                 .authorizeHttpRequests((requests) -> requests
+                        // всем можно на регистрацию
                         .requestMatchers( "/registration").permitAll()
+                        // к остальным ресурсам нужно быть зарегистрированным пользователем
                         .anyRequest().authenticated()
                 )
+                // формируем запрос для входа в аккаунт
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
@@ -42,6 +46,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
     }
+    // вход + шифрование пароля + контроль за доступом
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -49,6 +54,7 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+    // тип шифрования
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

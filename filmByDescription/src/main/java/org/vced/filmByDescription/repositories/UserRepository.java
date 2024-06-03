@@ -6,6 +6,7 @@ import org.vced.filmByDescription.models.User;
 
 import java.util.Optional;
 
+// Прослойка между java и бд, со старта уже реализованы базовые CRUD операции
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserByUsername(String username);

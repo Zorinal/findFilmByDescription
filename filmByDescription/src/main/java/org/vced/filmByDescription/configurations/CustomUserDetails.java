@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.vced.filmByDescription.models.User;
-
 import java.util.Collection;
-import java.util.List;
 
+// класс прослойка между CustomUserDetailsService и User
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private final User user;

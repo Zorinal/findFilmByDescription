@@ -15,6 +15,7 @@
     <input type="submit" value="Войти"/>
 </form>
 <form action="/registration" method="get">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="submit" value="Зарегистрироваться"/>
 </form>
 </body>

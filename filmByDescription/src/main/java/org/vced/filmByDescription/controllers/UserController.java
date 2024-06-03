@@ -14,6 +14,7 @@ import org.vced.filmByDescription.services.UserService;
 @Slf4j
 public class UserController {
     private final UserService userService;
+    // POST запрос уже обрабатывает SpringSecurity
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -22,11 +23,13 @@ public class UserController {
     public String registration() {
         return "registration";
     }
+    // попытка создать пользователя
     @PostMapping("/registration")
     public String createUser(Model model, User user) {
-        log.info("UserController.createUser()");
         if (!userService.createUser(user)) {
+            log.error("User {} already exist", user.getUsername());
             model.addAttribute("error", "Пользователь с таким именем уже существует");
+            return "registration";
         }
         return "redirect:/login";
     }

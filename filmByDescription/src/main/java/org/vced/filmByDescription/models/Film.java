@@ -18,6 +18,7 @@ public class Film {
     private String name;
     @Column(name = "description", columnDefinition = "text")
     private String description;
+    // При удалении фильма фильмы пользователя обновляются
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
