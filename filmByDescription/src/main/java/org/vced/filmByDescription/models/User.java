@@ -37,4 +37,8 @@ public class User {
     // при удалении юзера, удаляются все связанные с ним фильмы
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Film> films = new ArrayList<>();
+
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
 }

@@ -13,6 +13,12 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="submit" value="Выйти из аккаунта"/>
 </form>
+<#if isAdmin>
+<form action="/admin" method="get">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="submit" value="Панель администратора"/>
+</form>
+</#if>
 <form action="/" method="get">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="text" id="description" name="description"/><br><br>

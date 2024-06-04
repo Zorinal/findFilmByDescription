@@ -47,6 +47,7 @@ public class FilmController {
                         @RequestParam(name = "description", required = false) String description) {
         // возвращает на html список фильмов текущего пользователя
         model.addAttribute("films", filmService.filmList(principal));
+        model.addAttribute("isAdmin", filmService.getUserByPrincipal(principal).isAdmin());
         if (description != null) {
             try {
                 // здесь возникает ошибка, если json неправильный

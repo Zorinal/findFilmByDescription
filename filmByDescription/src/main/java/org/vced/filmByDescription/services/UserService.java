@@ -8,6 +8,8 @@ import org.vced.filmByDescription.models.Role;
 import org.vced.filmByDescription.models.User;
 import org.vced.filmByDescription.repositories.UserRepository;
 
+import java.util.List;
+
 // основная логика взаимодействия с пользователями
 @Service
 @RequiredArgsConstructor
@@ -25,10 +27,24 @@ public class UserService {
         }
         // устанавливаем базовые параметры для юзера
         user.setActive(true);
-        user.getRoles().add(Role.USER);
+        user.getRoles().add(Role.ADMIN); // Здесь можно поменять на Role.ADMIN
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         log.info("User {} has been created", user.getUsername());
         return true;
+    }
+    public List<User> users(){
+        // все пользователи из бд
+        return userRepository.findAll();
+    }
+
+    public void banUser(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        // null значит такого пользователя нет
+        if (user != null) {
+            // бан, если он актив, иначе разбан
+            user.setActive(!user.isActive());
+            userRepository.save(user);
+        } else log.info("User with id = {} is not existed", id);
     }
 }
