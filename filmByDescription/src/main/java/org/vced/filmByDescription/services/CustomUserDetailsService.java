@@ -21,6 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     // По этому методу Security шифрует пароль для User + сверяет уровень доступа по username
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Не пишу логи, иначе консоль засоряется
         Optional<User> user = userRepository.findUserByUsername(username);
         return user.map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("username: " + username + "not found"));

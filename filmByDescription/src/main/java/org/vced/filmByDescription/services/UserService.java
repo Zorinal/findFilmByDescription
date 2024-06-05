@@ -34,17 +34,26 @@ public class UserService {
         return true;
     }
     public List<User> users(){
+        log.info("UserService.users()");
         // все пользователи из бд
         return userRepository.findAll();
     }
 
     public void banUser(Long id) {
+        log.info("UserService.banUser()");
         User user = userRepository.findById(id).orElse(null);
         // null значит такого пользователя нет
         if (user != null) {
             // бан, если он актив, иначе разбан
-            user.setActive(!user.isActive());
+            if (user.isActive()){
+                user.setActive(false);
+                log.info("User with id = {} was banned", id);
+            } else {
+                user.setActive(true);
+                log.info("User with id = {} was unbanned", id);
+            }
             userRepository.save(user);
+            log.info("User with id = {} was saved to DB", id);
         } else log.info("User with id = {} is not existed", id);
     }
 }
