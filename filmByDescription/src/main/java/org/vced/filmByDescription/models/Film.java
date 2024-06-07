@@ -18,6 +18,8 @@ public class Film {
     private String name;
     @Column(name = "description", columnDefinition = "text")
     private String description;
+    @Column(name = "moderated")
+    private boolean moderated;
     // При удалении фильма фильмы пользователя обновляются
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.vced.filmByDescription.models.Film;
 import org.vced.filmByDescription.models.Role;
 import org.vced.filmByDescription.models.User;
 import org.vced.filmByDescription.repositories.UserRepository;

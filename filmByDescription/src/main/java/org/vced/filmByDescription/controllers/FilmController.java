@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +45,7 @@ public class FilmController {
                         Principal principal,
                         @RequestParam(name = "description", required = false) String description) {
         // возвращает на html список фильмов текущего пользователя
-        model.addAttribute("films", filmService.filmList(principal));
+        model.addAttribute("films", filmService.films(principal));
         model.addAttribute("isAdmin", filmService.getUserByPrincipal(principal).isAdmin());
         if (description != null) {
             try {
@@ -66,7 +65,7 @@ public class FilmController {
     @PostMapping("/film/create")
     public String filmCreate(Film film, Principal principal) {
         // сохранение фильма в системе
-        filmService.saveFilm(film, principal);
+        filmService.saveFilm(film, principal, false);
         return "redirect:/";
     }
 
@@ -86,7 +85,13 @@ public class FilmController {
         }
         return "film-info";
     }
-
+    // пользователь предлагает внести новый фильм
+    @PostMapping("/film/suggest")
+    public String filmSuggest(Film film, Principal principal){
+        // сохранение фильма в системе
+        filmService.saveFilm(film, principal, true);
+        return "redirect:/";
+    }
     // получаем информацию о фильме из python
     private List<String> sendNameToPython(String name) throws JsonProcessingException {
         // формируем json

@@ -5,7 +5,7 @@
     <title>Find film by description</title>
 </head>
 <body>
-<h1>Find film by description</h1>
+<h1><a href="/">Find film by description</a></h1>
 <#if errorMessage??>
     <div style="color: red;">${errorMessage}</div>
 </#if>
