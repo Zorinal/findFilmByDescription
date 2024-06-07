@@ -42,7 +42,6 @@
     Предложите описание и название фильма<br><br>
     <form action="/film/suggest" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
         <input type="text" id="name" name="name" placeholder="Название фильма"/><br><br>
         <input type="text" id="description" name="description" placeholder="Описание"/><br><br>
         <input type="submit" value="Отправить"/>

@@ -37,6 +37,7 @@
     <#else>
         <h3>Пользователей нет</h3>l
     </#list>
+    <a href="/download/data.csv">Скачать data.csv</a>
 </table>
     <#if films?size == 0>
         <h3>Неодобренных фильмов нет</h3>
