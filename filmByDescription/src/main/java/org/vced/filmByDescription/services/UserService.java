@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.vced.filmByDescription.models.Film;
 import org.vced.filmByDescription.models.Role;
 import org.vced.filmByDescription.models.User;
 import org.vced.filmByDescription.repositories.UserRepository;
@@ -18,7 +17,6 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     public boolean createUser(User user) {
         log.info("UserService.createUser()");
         // существует ли данный пользователь
@@ -28,7 +26,7 @@ public class UserService {
         }
         // устанавливаем базовые параметры для юзера
         user.setActive(true);
-        user.getRoles().add(Role.ADMIN); // Здесь можно поменять на Role.ADMIN
+        user.getRoles().add(Role.USER); // Здесь можно поменять на Role.ADMIN
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         log.info("User {} has been created", user.getUsername());
@@ -56,5 +54,8 @@ public class UserService {
             userRepository.save(user);
             log.info("User with id = {} was saved to DB", id);
         } else log.info("User with id = {} is not existed", id);
+    }
+    public boolean existsByUsername(String username) {
+        return userRepository.findUserByUsername(username).isPresent();
     }
 }

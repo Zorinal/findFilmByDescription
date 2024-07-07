@@ -1,8 +1,7 @@
 package org.vced.filmByDescription.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,8 +9,12 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-@Data
-@RequiredArgsConstructor
+@EqualsAndHashCode(exclude = {"films"})
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

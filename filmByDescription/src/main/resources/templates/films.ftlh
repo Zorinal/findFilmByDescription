@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Find film by description</title>
 </head>
 <body>
@@ -26,24 +26,28 @@
 </form>
 <#if suggestedFilms??>
     <#list suggestedFilms as film>
-        <a href="/film/${film}">${film}</a><br>
+        <a href="/film/${film}">${film}</a><br></br>
     </#list>
 </#if>
-История поиска:<br>
-<#if films??>
-    <#list films as film>
-        ${film.name}<br>
-    </#list>
-</#if>
+<div id="film-list">
+    История поиска:<br></br>
+    <#if films??>
+        <#list films as film>
+            <div>
+                ${film.name}<br></br>
+            </div>
+        </#list>
+    </#if>
+</div>
 <button onclick="document.getElementById('addFilmForm').showModal()">Не нашли то, что искали?</button>
 <dialog id="addFilmForm">
     <button type="button" onclick="document.getElementById('addFilmForm').close()">✖</button>
-    <br><br>
-    Предложите описание и название фильма<br><br>
+    <br></br>
+    Предложите описание и название фильма<br></br>
     <form action="/film/suggest" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="text" id="name" name="name" placeholder="Название фильма"/><br><br>
-        <input type="text" id="description" name="description" placeholder="Описание"/><br><br>
+        <input type="text" id="name" name="name" placeholder="Название фильма"/><br></br>
+        <input type="text" id="description" name="description" placeholder="Описание"/><br></br>
         <input type="submit" value="Отправить"/>
     </form>
 </dialog>

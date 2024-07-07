@@ -15,6 +15,8 @@ import org.vced.filmByDescription.services.UserService;
 @Slf4j
 public class UserController {
     private final UserService userService;
+    // ссылка на кинопоиск бота
+    private static final String KINOPOSIK_BOT = "https://api.telegram.org/bot@kinopoiskdev_bot/";
     // POST запрос уже обрабатывает SpringSecurity
     @GetMapping("/login")
     public String login() {
@@ -34,7 +36,7 @@ public class UserController {
         }
         return "redirect:/login";
     }
-    @GetMapping("/user/{user}") // хоть отправляем /user/id мы так всё равно можем делать
+    @GetMapping("/user/{user}")
     public String getUser(@PathVariable User user, Model model){
         model.addAttribute("user", user);
         model.addAttribute("films", user.getFilms());

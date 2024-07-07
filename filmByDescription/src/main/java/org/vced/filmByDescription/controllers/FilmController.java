@@ -46,6 +46,7 @@ public class FilmController {
                         @RequestParam(name = "description", required = false) String description) {
         // возвращает на html список фильмов текущего пользователя
         model.addAttribute("films", filmService.films(principal));
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         model.addAttribute("isAdmin", filmService.getUserByPrincipal(principal).isAdmin());
         if (description != null) {
             try {
