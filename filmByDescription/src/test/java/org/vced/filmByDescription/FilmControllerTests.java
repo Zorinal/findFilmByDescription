@@ -28,11 +28,21 @@ class FilmControllerTests {
     private MockMvc mockMvc;
     @Test
     @SneakyThrows
-    void should_present_main_page_correctly(){
+    void should_present_main_page_with_four_films(){
         // необходимо, чтобы html соответствовал формату xml
         this.mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(authenticated())
                 .andExpect(xpath("//div[@id='film-list']/div").nodeCount(4));
+    }
+    @WithMockUser(username = "mail@mail.com")
+    @Test
+    @SneakyThrows
+    void should_present_main_page_with_no_films(){
+        // необходимо, чтобы html соответствовал формату xml
+        this.mockMvc.perform(get("/"))
+                .andDo(print())
+                .andExpect(authenticated())
+                .andExpect(xpath("//div[@id='film-list']/div").nodeCount(0));
     }
 }
